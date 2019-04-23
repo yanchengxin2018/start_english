@@ -69,6 +69,9 @@ def parse_card():
     if card_type == 'update_card':
         commit_url = '{}/main/update_card_commit/'.format(ip)
         commit_handler = update_commit
+    elif card_type == 'new_card':
+        commit_url = '{}/main/new_card_commit/'.format(ip)
+        commit_handler = new_commit
     elif card_type == 'info_card':
         commit_url = '{}/main/get_word_card/'.format(ip)
         commit_handler = get_new_card
@@ -101,6 +104,14 @@ def show_card():
         print(card_type)
         input('任意键继续')
 
+#新卡提交
+def new_commit():
+    global headers, card, spell
+    word_index = card.get('word_index')
+    data = {'word_index': word_index}
+    response_obj = requests.post('{}/main/new_card_commit/'.format(ip), headers=headers, data=data)
+    data = response_obj.content
+    card = json.loads(data)
 
 # 升级卡提交
 def update_commit():
