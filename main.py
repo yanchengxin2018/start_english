@@ -90,6 +90,7 @@ def show_card():
     card_type = card.get('card_type')
     if card_type == 'new_card':
         new_card_show()
+        input('任意键继续')
     elif card_type == 'update_card':
         updata_card_show()
         spell = input('输入英语单词:')
