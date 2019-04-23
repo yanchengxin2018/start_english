@@ -89,7 +89,7 @@ def show_card():
     global card, spell
     card_type = card.get('card_type')
     if card_type == 'new_card':
-        pass
+        new_card_show()
     elif card_type == 'update_card':
         updata_card_show()
         spell = input('输入英语单词:')
@@ -104,6 +104,7 @@ def show_card():
         print(card_type)
         input('任意键继续')
 
+
 #新卡提交
 def new_commit():
     global headers, card, spell
@@ -112,6 +113,7 @@ def new_commit():
     response_obj = requests.post('{}/main/new_card_commit/'.format(ip), headers=headers, data=data)
     data = response_obj.content
     card = json.loads(data)
+
 
 # 升级卡提交
 def update_commit():
@@ -132,6 +134,23 @@ def strengthen_commit():
     data = response_obj.content
     card = json.loads(data)
 
+#新卡显示
+def new_card_show():
+    global card, word_index
+    word_index = card.get('word_index')
+
+    english = card.get('english')
+    chinese = card.get('chinese')
+    pronunciation = card.get('pronunciation')
+    line()
+    context('新卡片')
+    line()
+    context(english)
+    line()
+    context(chinese)
+    line()
+    context(pronunciation)
+    line()
 
 # 升级卡显示
 def updata_card_show():
@@ -157,7 +176,7 @@ def strengthen_card_show():
     line()
 
 
-# 升级卡显示
+# 信息卡显示
 def info_card_show():
     global card, word_index
     level_alter = card.get('level_alter')
